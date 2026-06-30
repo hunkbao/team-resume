@@ -1,0 +1,183 @@
+{% extends "members/base.html" %}
+{% load static %}
+
+{% block title %}{{ profile.name }} — 个人简历{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+  <!-- Top accent gradient line -->
+  <div class="profile-accent-bar"></div>
+  <div class="container">
+
+    <!-- Hero: Photo + Basic Info -->
+    <section class="profile-hero animate-in">
+      <div class="profile-hero__accent-ring"></div>
+      {% if profile.photo %}
+      <div class="profile-hero__photo-wrap">
+        <img src="{{ profile.photo.url }}" alt="{{ profile.name }}的照片" class="profile-hero__photo">
+      </div>
+      {% else %}
+      <div class="profile-hero__photo-wrap">
+        <div class="profile-hero__photo-placeholder" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="profile-hero__info">
+        <h1 class="profile-hero__name">{{ profile.name }}</h1>
+        <div class="profile-hero__tags">
+          <span class="tag">{{ profile.grade }}</span>
+          <span class="tag tag--accent">{{ profile.get_political_status_display }}</span>
+          <span class="tag">{{ profile.ethnicity }}</span>
+        </div>
+        <div class="profile-hero__contact">
+          {% if profile.email %}
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            {{ profile.email }}
+          </div>
+          {% endif %}
+          {% if profile.wechat %}
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            微信: {{ profile.wechat }}
+          </div>
+          {% endif %}
+          {% if profile.qq %}
+          <div class="contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a4 4 0 0 1-8 0V8"/></svg>
+            QQ: {{ profile.qq }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Basic Info -->
+    <section class="section-card animate-in">
+      <h2 class="section-card__title">
+        <span class="section-card__icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </span>
+        基本信息
+      </h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-item__label">出生年月</span>
+          <span class="info-item__value">{{ profile.birth_date }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-item__label">民族</span>
+          <span class="info-item__value">{{ profile.ethnicity }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-item__label">籍贯</span>
+          <span class="info-item__value">{{ profile.hometown }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-item__label">政治面貌</span>
+          <span class="info-item__value">{{ profile.get_political_status_display }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-item__label">年级</span>
+          <span class="info-item__value">{{ profile.grade }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specialties -->
+    {% if profile.specialties %}
+    <section class="section-card animate-in">
+      <h2 class="section-card__title">
+        <span class="section-card__icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </span>
+        个人特长
+      </h2>
+      <div class="section-card__content">{{ profile.specialties }}</div>
+    </section>
+    {% endif %}
+
+    <!-- Hobbies -->
+    {% if profile.hobbies %}
+    <section class="section-card animate-in">
+      <h2 class="section-card__title">
+        <span class="section-card__icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </span>
+        个人爱好
+      </h2>
+      <div class="section-card__content">{{ profile.hobbies }}</div>
+    </section>
+    {% endif %}
+
+    <!-- Courses -->
+    {% if courses %}
+    <section class="section-card animate-in">
+      <h2 class="section-card__title">
+        <span class="section-card__icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </span>
+        所学课程
+      </h2>
+      <div class="course-grid">
+        {% for course in courses %}
+        <div class="course-chip">
+          <span class="course-chip__dot"></span>
+          {{ course.name }}
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- Future Plan -->
+    {% if profile.future_plan %}
+    <section class="section-card section-card--highlight animate-in">
+      <h2 class="section-card__title">
+        <span class="section-card__icon-wrap section-card__icon-wrap--accent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </span>
+        未来10年规划
+      </h2>
+      <div class="section-card__content future-plan-text">{{ profile.future_plan }}</div>
+    </section>
+    {% endif %}
+
+    <!-- Favorite Websites -->
+    {% if websites %}
+    <section class="section-card animate-in">
+      <h2 class="section-card__title">
+        <span class="section-card__icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </span>
+        最喜爱的网站
+      </h2>
+      <div class="website-list">
+        {% for site in websites %}
+        <a href="{{ site.url }}" target="_blank" rel="noopener noreferrer" class="website-link">
+          <div class="website-link__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </div>
+          <div class="website-link__text">
+            <div class="website-link__title">{{ site.title }}</div>
+            {% if site.description %}
+            <div class="website-link__url">{{ site.description }}</div>
+            {% else %}
+            <div class="website-link__url">{{ site.url }}</div>
+            {% endif %}
+          </div>
+          <svg class="website-link__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}

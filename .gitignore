@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+*.pyo
+.env
+venv/
+.venv/
+env/
+media/photos/
+*.log
+.claude/
+cookies.txt
+personal-website/
