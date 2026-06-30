@@ -1,2 +1,2 @@
-web: gunicorn team_resume.wsgi
-release: python manage.py migrate && python manage.py collectstatic --noinput
+web: bash entrypoint.sh
+release: python manage.py migrate --noinput && python manage.py collectstatic --noinput
